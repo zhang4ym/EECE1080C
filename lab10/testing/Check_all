@@ -1,0 +1,89 @@
+#!/bin/bash
+# Input File for all .cpp files
+# input-file.txt
+#
+# Filecopy Sample
+# filecopy-output-file.txt	# output from filecopy 
+				# should be the same as input-file.txt
+#
+#Caesar Cipher Samples:
+#The Caesar cipher key for the sample files is ggHHHUUUU
+#
+# caesar-encrypted-file.txt	# encrypted file with above key
+# caesar-decrypted-file.txt	# decrypted file with above key
+			        # should be the same as input-file.txt
+#
+# ROT13 Cipher Samples:
+# rot13-encrypted-file.txt	# encrypted rot13 file
+# rot13-decrypted-file.txt	# decrypted rot13 file 
+			        # should be the same as input-file.txt
+#
+# Substitution Cipher Samples:
+# The substitution cipher key for these files are phqgiumeaylnofdxjkrcvstzwb
+#
+# sub-encrypted-file.txt	# encrypted Substitution file using above key
+# sub-decrypted-file.txt	# decrypted Substitution file using above key
+			        # should be the same as input-file.txt
+function check_file {
+  local file1=$1
+  local file2=$2
+
+  local file1_md5=`md5sum $file1 | awk '{print $1}'`
+  local file2_md5=`md5sum $file2 | awk '{print $1}'`
+
+  if [ "$file1_md5" == "$file2_md5" ];
+  then
+	echo "Passed: $file1 $file2"
+	RETVAL=1
+	return 
+  fi
+  echo "Not Passed: $file1 $file2"
+  RETVAL=0
+}  
+
+COUNT=0
+RETVAL=0
+cd testing/work_dir
+rm -f *.txt
+cp -p ../.backup/*.txt ..
+
+echo "Testing filecopy"
+../../filecopy ../input-file.txt filecopy-output-file.txt
+check_file ../input-file.txt filecopy-output-file.txt
+COUNT=$((COUNT + RETVAL))
+
+echo "Testing rot13"
+../../rot13 ../input-file.txt rot13-encrypted-file.txt rot13-decrypted-file.txt
+
+check_file ../rot13-encrypted-file.txt rot13-encrypted-file.txt
+COUNT=$((COUNT + RETVAL))
+check_file ../input-file.txt rot13-decrypted-file.txt
+COUNT=$((COUNT + RETVAL))
+
+echo "Testing Caesar"
+../../caesar ../input-file.txt caesar-encrypted-file.txt caesar-decrypted-file.txt ggHHHUUUU
+
+check_file ../caesar-encrypted-file.txt caesar-encrypted-file.txt
+COUNT=$((COUNT + RETVAL))
+check_file ../input-file.txt caesar-decrypted-file.txt
+COUNT=$((COUNT + RETVAL))
+
+echo "Testing Substitution Cipher"
+../../sub ../input-file.txt sub-encrypted-file.txt sub-decrypted-file.txt phqgiumeaylnofdxjkrcvstzwb
+
+check_file ../sub-encrypted-file.txt sub-encrypted-file.txt
+COUNT=$((COUNT + RETVAL))
+check_file ../input-file.txt sub-decrypted-file.txt
+ 
+COUNT=$((COUNT + RETVAL))
+
+if [ "$COUNT" -eq "7" ];
+then
+	echo "All Tests passed: Ok"
+	exit 0
+else
+	echo "Something Failed See above for details"
+	exit -1
+fi
+
+exit 0
