@@ -1,0 +1,39 @@
+set xtics rotate
+
+set terminal qt 0
+set title 'push_back'
+plot 'ResultPushBack.txt' using 1:2 title 'Vector',\
+ 'ResultPushBack.txt' using 1:3 title 'LList',\
+ 'ResultPushBack.txt' using 1:4 title 'LListR'
+
+set terminal qt 1 
+set title 'push_front'
+plot 'ResultpushFront.txt' using 1:2 title 'Vector',\
+  'ResultpushFront.txt' using 1:3 title 'LList',\
+  'ResultpushFront.txt' using 1:4 title 'LListR'
+  
+set terminal qt 2
+set title 'size'
+plot 'Resultsize.txt' using 1:2 title 'Vector',\
+  'Resultsize.txt' using 1:3 title 'LList',\
+  'Resultsize.txt' using 1:4 title 'LListR'
+  
+set terminal qt 3
+set title '50 Accesses'  
+plot 'Resultaccess.txt' using 1:2 title 'Vector',\
+  'Resultaccess.txt' using 1:3 title 'LList',\
+  'Resultaccess.txt' using 1:4 title 'LListR'
+ 
+set terminal qt 4
+set title 'pop back'  
+plot 'ResultPopBack.txt' using 1:2 title 'Vector',\
+  'ResultPopBack.txt' using 1:3 title 'LList',\
+  'ResultPopBack.txt' using 1:4 title 'LListR'
+  
+set terminal qt 5
+set title 'pop front'  
+plot 'ResultPopFront.txt' using 1:2 title 'Vector',\
+  'ResultPopFront.txt' using 1:3 title 'LList',\
+  'ResultPopFront.txt' using 1:4 title 'LListR'
+  
+pause -1 "Hit enter to finish"
