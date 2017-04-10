@@ -12,22 +12,7 @@
 using namespace std;
 
 // Please add your function or class here to implement your filecopy
-void displayFile(string in_file) {
-    ifstream inputFile;
-	ofstream outputFile;
-    string inputString;
-	
-    inputFile.open(in_file.c_str());
-	outputFile.open("filecopy-output-file.txt");
 
-    if(!inputFile) return;
-
-    while(getline(inputFile, inputString)) {
-     outputFile << getline(inputFile,inputString)<<endl;
-    }
-    inputFile.close();
-	outputFile.close()
-}
 
 int main(int argc, char *argv[]) {
    string source_file;	// source file to copy data from
