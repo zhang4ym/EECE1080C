@@ -37,9 +37,9 @@ public:
     string OUTFILE1;       // OUTFILE1 is encrypted file /home/student/Programming/outfile1.txt
     string OUTFILE2;       // OUTFILE2 is decrypted file
     string key;            //sample phqgiumeaylnofdxjkrcvstzwb
-
-
-
+    
+    
+    
     // constructor 1
     Asckey(string infile_x,string OUTFILE1_x,string OUTFILE2_x,string key_x){
         key = key_x;
@@ -47,7 +47,7 @@ public:
         OUTFILE1 = OUTFILE1_x;
         OUTFILE2 = OUTFILE2_x;
     }
-
+    
     // Member funtion encryt and decrypt file and output two seperate txt file
     void readfile(string source_file,string outfile1,string outfile2,string key4){
         // file I/O declaration
@@ -58,7 +58,7 @@ public:
         outputFile1.open(outfile1);
         outputFile2.open(outfile2);
         string inputString;
-
+        
         if(!inputFile) return;
         // getline command
         while(getline(inputFile, inputString)) {
@@ -245,8 +245,8 @@ public:
         outputFile1.close();
         outputFile2.close();
     }
-
-
+    
+    
 };
 
 
@@ -255,11 +255,11 @@ int main(int argc, char *argv[]) {
     string encrypted_file;	// dest file for the recipent of the encrypted data
     string decrypted_file;	// dest file for the decrypted data
     string cipher_key;	// cipher_key
-
+    
     // This section prompts for or uses command line arguments to get
     // the filenames
 #ifdef TESTING	// includes Mimir so do not modify
-
+    
     if(argc != 5) {
         cout << "Not correct Usage: " << argv[0] << " input_file encryped_file decryped_file cipher_key\n";
         exit(-1);
@@ -268,28 +268,28 @@ int main(int argc, char *argv[]) {
     encrypted_file = argv[2];
     decrypted_file = argv[3];
     cipher_key = argv[4];
-
+    
 #else
     cout << "Enter Source File: ";
     cin >> input_file;
-
+    
     cout << "Enter Encrypted File: ";
     cin >> encrypted_file;
-
+    
     cout << "Enter Decrypted File: ";
     cin >> decrypted_file;
-
+    
     cout << "Enter Cipher Key: ";
-
+    
     cin >> cipher_key;
-
+    
 #endif
     cout << "Going to Encrypt File:  " << input_file
          << " using the encryption key " << cipher_key
          << " the encrypted file going to " << encrypted_file
          << "  decrypting back to " << decrypted_file
          << endl;
-
+    
     // Please place your class variable declaration here.
     // create class object
     Asckey obj1(input_file,encrypted_file,decrypted_file,cipher_key);
